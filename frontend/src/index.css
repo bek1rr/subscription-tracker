@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  /* Görseli arka plan yap */
+  background-image: url('./assets/background.jpg');
+  
+  /* Görselin tüm ekranı kaplamasını sağla */
+  background-size: cover;
+  
+  /* Tekrar etmesini engelle */
+  background-repeat: no-repeat;
+  
+  /* Sayfa kaydırılsa bile görsel sabit kalsın */
+  background-attachment: fixed;
+  
+  /* Görselin ortalanmasını sağla */
+  background-position: center;
+}
