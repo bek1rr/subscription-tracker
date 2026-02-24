@@ -1,0 +1,55 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            Int            @id @default(autoincrement())
+  name          String
+  email         String         @unique
+  password      String
+  phone         String?
+  currency      String         @default("TRY")
+  language      String         @default("tr")
+  createdAt     DateTime       @default(now())
+
+  subscriptions Subscription[]
+  notifications Notification[] 
+}
+
+model Subscription {
+  id              Int      @id @default(autoincrement())
+  userId          Int
+  name            String
+  price           Float
+  currency        String
+  category        String
+  billingCycle    String
+  startDate       DateTime
+  nextPaymentDate DateTime
+  cancelUrl       String?
+  status          String   @default("Active") // <-- YENİ EKLENEN SATIR (Varsayılan: Aktif)
+  createdAt       DateTime @default(now())
+  
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Notification {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  message   String
+  type      String   @default("info")
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
