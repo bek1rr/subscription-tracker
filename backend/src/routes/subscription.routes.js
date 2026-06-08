@@ -9,7 +9,6 @@ router.post("/", checkAuth, subscriptionController.createSubscription);
 // Listeleme
 router.get("/", checkAuth, subscriptionController.getMySubscriptions);
 
-// --- YENİ EKLENEN KISIM (DİKKAT: SİLME İŞLEMİNDEN ÖNCE OLMALI) ---
 // İstatistikleri Getir
 router.get("/stats", checkAuth, subscriptionController.getStats); 
 
