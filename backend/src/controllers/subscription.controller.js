@@ -2,7 +2,6 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 // Abonelik Ekle
-// Abonelik Ekle
 exports.createSubscription = async (req, res) => {
   try {
     const { userId } = req.userData;
@@ -13,8 +12,7 @@ exports.createSubscription = async (req, res) => {
     const start = new Date(startDate);
     let nextPayment = new Date(start);
 
-    // ESKİ YÖNTEMİ SİL: (Monthly/Yearly kontrolü yerine)
-    // YENİ YÖNTEM: Gelen gün sayısını ekle
+
     // Eğer kullanıcı boş bırakırsa varsayılan 30 gün olsun
     const daysToAdd = durationDays ? parseInt(durationDays) : 30;
     
@@ -57,7 +55,6 @@ exports.getMySubscriptions = async (req, res) => {
   }
 };
 
-// ... (üstteki kodlar aynen kalsın)
 
 // Abonelik Silme Fonksiyonu
 exports.deleteSubscription = async (req, res) => {
@@ -65,7 +62,7 @@ exports.deleteSubscription = async (req, res) => {
     const { id } = req.params; // Silinecek aboneliğin ID'si
     const { userId } = req.userData; // Kim siliyor? (Güvenlik için şart)
 
-    // Sadece kendi aboneliğini silebilsin diye userId kontrolü yapıyoruz
+    // Sadece kendi aboneliğini silebilsin diye userId kontrolü
     await prisma.subscription.deleteMany({
       where: {
         id: parseInt(id),
@@ -79,7 +76,6 @@ exports.deleteSubscription = async (req, res) => {
     res.status(500).json({ error: "Silme işlemi başarısız." });
   }
 };
-// ... (Diğer kodlar yukarıda)
 
 // Dashboard İstatistiklerini Getir
 exports.getStats = async (req, res) => {
@@ -92,7 +88,6 @@ exports.getStats = async (req, res) => {
     });
 
     // 2. Toplam Aylık Harcamayı Hesapla
-    // Not: Yıllık abonelikleri 12'ye bölerek aylık maliyete ekleyebiliriz ama şimdilik düz topluyoruz.
     const totalMonthly = subs.reduce((acc, sub) => acc + sub.price, 0);
 
     // 3. Yaklaşan Ödemeleri Bul (Önümüzdeki 7 gün içindekiler)
@@ -118,7 +113,6 @@ exports.getStats = async (req, res) => {
   }
 };
 
-// ... (Diğer fonksiyonlar yukarıda)
 
 // Durum Güncelleme (Pause / Resume)
 exports.updateStatus = async (req, res) => {
