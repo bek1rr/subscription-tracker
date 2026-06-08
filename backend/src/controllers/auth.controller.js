@@ -61,7 +61,6 @@ exports.login = async (req, res) => {
   }
 };
 
-// ... (Register ve Login fonksiyonları yukarıda kalsın) ...
 
 // Kullanıcı Bilgilerini Getir (Profil Sayfası İçin)
 exports.getProfile = async (req, res) => {
@@ -93,7 +92,6 @@ exports.updateProfile = async (req, res) => {
   }
 };
 
-// ... (Diğer fonksiyonlar yukarıda)
 
 // Şifre Değiştirme
 exports.updatePassword = async (req, res) => {
